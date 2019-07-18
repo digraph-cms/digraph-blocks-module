@@ -1,0 +1,60 @@
+module:
+  name: digraph_blocks
+  namespace: \Digraph\Modules\Blocks
+
+types:
+  content:
+    block: ${module.namespace}\Block
+    blockarea: ${module.namespace}\BlockArea
+
+helpers:
+  classes:
+    blocks: ${module.namespace}\BlockHelper
+
+permissions:
+  url:
+    # deny displaying blocks and blockareas to everyone but webmasters
+    block/display:
+      - deny all
+      - allow group webmaster, editor
+    blockarea/display:
+      - deny all
+      - allow group webmaster, editor
+    # only allow admin interface to webmaster
+    _blocks/*:
+      - deny all
+      - allow group webmaster
+  add:
+    # deny adding blocks under everything
+    '*/block':
+      - deny all
+    # deny adding blockareas except to webmaster
+    '*/blockarea':
+      - deny all
+      - allow group webmaster
+    # deny adding anything under blocks or blockareas
+    block/*:
+      - deny all
+    blockarea/*:
+      - deny all
+    # allow adding blocks under blockareas to webmasters
+    blockarea/block:
+      - allow group webmaster
+
+actions:
+  categorical:
+    _controlpanel:
+      blocks: _blocks/display
+
+navigation:
+  parents:
+    common:
+      _blocks/*: _blocks/display
+      _blocks/display: _controlpanel/display
+    proper:
+      blockarea/display: _blocks/display
+
+strings:
+  urls:
+    common:
+      _blocks/display: Block management
