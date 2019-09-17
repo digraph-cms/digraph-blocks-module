@@ -16,9 +16,7 @@ class BlockHelper extends AbstractHelper
         if (!$noun) {
             $output = '<div class="digraph-block-content">['.$s->string('blocks.notfound').']</div>';
         } else {
-            $output = '<div class="digraph-actionbar inactive" data-id="'.$noun['dso.id'].'">'.
-                '<div class="digraph-actionbar-title">'.$noun->name().'</div></div>'.
-                '<div class="digraph-block-content">'.$this->blockContent($noun).'</div>';
+            $output = '<div class="digraph-block-content">'.$this->blockContent($noun).'</div>';
         }
         return '<div class="digraph-block">'.$output.'</div>';
     }
