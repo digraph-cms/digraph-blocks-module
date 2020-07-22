@@ -1,5 +1,5 @@
 <?php
-$package->noCache();
+$package->cache_noStore();
 $search = $cms->factory()->search();
 $search->where('${dso.type} = :type');
 $areas = $search->execute(['type'=>'blockarea']);
